@@ -7,6 +7,14 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
+            var book = new Book("Pavan's Book");
+            book.AddGrades(99.99);
+            book.AddGrades(52.7);
+            book.AddGrades(79.81);
+
+            book.ShowStatistics();
+            
+             /* 
             double[] numbers = new double[3] {11.2, 12.3, 14.5};
             var result = 0.0;
             foreach (double number in numbers)
@@ -29,7 +37,7 @@ namespace GradeBook
 
             Console.WriteLine($"New List Total is {newresult}");
 
-            /* Commented after successful testing
+           Commented after successful testing
             var UserName = "Pavan Kumar";
             Console.WriteLine("Hello World!");
             Console.WriteLine($"Hello World!");
