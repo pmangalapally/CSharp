@@ -9,7 +9,7 @@ namespace CustomFileCompression
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            /*if (args.Length == 0)
             {
                 Console.WriteLine("No arguments found");
             }
@@ -21,38 +21,21 @@ namespace CustomFileCompression
                     Console.WriteLine($"Argument {srcPath} is not a directory");
                 }
                 else
-                {
-                    string [] fileNamesinDir = Directory.GetFiles(srcPath, "*.txt");
-                    foreach(string filename in fileNamesinDir)
+                {*/
+                    CompressFiles cf = new CompressFiles();
+
+
+                    var SourcePath = "/Users/pavan/Desktop/GitHub/CSharp/CustomFileCompression/Input";
+                    var DestinationPath = "/Users/pavan/Desktop/GitHub/CSharp/CustomFileCompression/Output";
+                    double AgeOfFile = 60;
+
+                    if (Directory.Exists(SourcePath) && Directory.Exists(DestinationPath))
                     {
-                        string JustFileName = Path.GetFileName(filename);
-                        Console.WriteLine($"File name {filename}");
-                        string newFileName = filename + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".zip";
-                        string tempDir = Path.Combine(srcPath, "tempdirectory");
-                        string MoveFileName = Path.Combine(tempDir, JustFileName);
-                        if (Directory.Exists(tempDir))
-                        {
-                            Directory.Delete(tempDir);
-                        }
-                        Console.WriteLine($"Directory deleted");
-
-                        Directory.CreateDirectory(tempDir);
-                        File.Move(filename, MoveFileName);
-                        ZipFile.CreateFromDirectory(tempDir, newFileName);
-                        
-                        if (File.Exists(MoveFileName))
-                        {
-                            File.Delete(MoveFileName);
-                        }
-                        if (Directory.Exists(tempDir))
-                        {
-                            Directory.Delete(tempDir);
-                        }
-
+                        cf.moveCompressedFiles(SourcePath, DestinationPath, AgeOfFile);
                     }
 
-                }
-            }
+              //  }
+            //}
         }
     }
 }
