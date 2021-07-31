@@ -1,6 +1,8 @@
 ﻿using System;
-using System.IO.Compression;
 using System.IO;
+using CustomFileCompression.CustomConfiguration;
+using System.Configuration;
+
 namespace CustomFileCompression
 {
 
@@ -10,19 +12,31 @@ namespace CustomFileCompression
         static void Main(string[] args)
         {
 
-                    CompressFiles cf = new CompressFiles();
+            CompressFiles cf = new ();
 
+            // Get the custom Configuration Section using its name
+            var customConfig = (DirMapConfig)ConfigurationManager.GetSection("DirectoryConfiguration");
 
-                    var SourcePath = "/Users/pavan/Desktop/GitHub/CSharp/CustomFileCompression/Input";
-                    var DestinationPath = "/Users/pavan/Desktop/GitHub/CSharp/CustomFileCompression/Output";
-              double AgeOfFile = 60;
-
-            if (Directory.Exists(SourcePath) && Directory.Exists(DestinationPath))
+            // Loop through each instance in the CustomConfigurationCollection
+            foreach (CustomConfigurationElement DirectoryMappingInstance in customConfig.DirectoryMapping)
             {
-                cf.MoveCompressedFiles(SourcePath, DestinationPath, AgeOfFile);
-                Console.WriteLine("Files moved");
+
+                string SourcePath = DirectoryMappingInstance.SourceDirname;
+                string DestinationPath = DirectoryMappingInstance.DestinationDirname;
+                double AgeOfFile = Convert.ToDouble(DirectoryMappingInstance.FileStabilityTimeInSeconds);
+
+                if (Directory.Exists(SourcePath) && Directory.Exists(DestinationPath))
+                {
+                    cf.MoveCompressedFiles(SourcePath, DestinationPath, AgeOfFile);
+                    Console.WriteLine("Files moved");
+                }
+                else { Console.WriteLine("No dir found!"); }
+
             }
-            else { Console.WriteLine("No dir found!"); }
+
+            // Prevent the Console from closing immediately afterwards
+            //Console.ReadKey();
+
         }
     }
 }
