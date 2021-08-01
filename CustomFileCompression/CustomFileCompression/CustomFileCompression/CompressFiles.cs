@@ -41,7 +41,7 @@ namespace CustomFileCompression
 
         public void MoveCompressedFiles(string srcPath, string destPath, double fileWaitTime)
         {
-            string[] filePathinDir = Directory.GetFiles(srcPath, "*.txt");
+            string[] filePathinDir = Directory.GetFiles(srcPath, "*.*");
 
             foreach (string filePathName in filePathinDir)
             {

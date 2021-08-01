@@ -14,6 +14,10 @@ namespace CustomFileCompression
 
             CompressFiles cf = new ();
 
+            //Refresh Section to get latest configurations without restarting the service/app.
+            ConfigurationManager.RefreshSection("DirectoryConfiguration");
+
+
             // Get the custom Configuration Section using its name
             var customConfig = (DirMapConfig)ConfigurationManager.GetSection("DirectoryConfiguration");
 
